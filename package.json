@@ -1,0 +1,19 @@
+{
+  "name": "esbuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "buildjs": "esbuild src/js/embed/index.js --bundle --outfile=dist/js/embed.js --target=chrome58,firefox57,safari11,edge16",
+    "start": "esbuild src/js/embed/index.js --servedir=dist --outdir=dist/js --bundle",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run buildjs && node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.13.12",
+    "express": "^4.17.1",
+    "js-channel": "^1.0.1839"
+  }
+}
