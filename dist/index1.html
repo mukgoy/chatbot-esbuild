@@ -57,15 +57,49 @@
 
         }
     };
-    var embedJS = "https://dev.intelliassist.co/mukesh/esbuild/js/embed.js";
-    // var embedJS = "http://blog.chatboot.com/js/embed.js";
-	(function(w, d, g, e) {
+	
+    (function() {
+        // https://jobalertbot.com/o/85/35
+        // https://jobalertbot.com/d/1/13893204
+        // https://jobalertbot.com/u/13598658/1/13893204
+        // https://jobalertbot.com/d/1/13893204/1
+        
+        var routes = [
+            '/u/:userId/:flowId/:jobId',
+            '/d/:flowId/:jobId/:ignoreUserID',
+            '/o/:orgId/:flowId',
+            '/d/:flowId/:jobId'
+        ];
+        // parse and recreate config for use
+        routes = routes.map(function(path) {
+            return {
+                pattern: new RegExp("^" + path.replace(/:[^\s/]+/g, '([\\w-]+)') + "$"),
+                path: path
+            };
+        });
+
+    var url = location.pathname;
+
+    for (var i = 0, l = routes.length; i < l; i++) {
+        console.log(url,routes[i],url.match(routes[i].pattern));
+        console.log(routes[i].path, url);
+        console.log(url.match(routes[i].pattern), routes[i].path.match(routes[i].pattern));
+        var found = url.match(routes[i].pattern);
+        if (found) { // parsed successfully
+        console.log("pattern: " + routes[i].pattern); // module to load
+        console.log("args:", found.slice(1)); // arguments for module
+        break; // ignore the rest of the paths
+        }
+    }
+    })();
+
+    (function(w, d, g, e) {
 		var t = d.createElement(g);
 		t.async = 1;
 		t.src = e;
 		s = d.getElementsByTagName(g)[0];
 		s.parentNode.insertBefore(t, s);
-	})(window, document,'script', embedJS);
+	})(window, document,'script', 'http://blog.chatboot.com/js/embed.js');
 </script>
 
 </body>

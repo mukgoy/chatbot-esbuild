@@ -1,3 +1,4 @@
+
 export function resize(w,h){
     console.log(w,h);
     channel.iframe.style['width'] = w+"px";
@@ -80,4 +81,14 @@ export function urlProperty (url, field){
         return el[field];
     }
     return '';
+}
+
+export function setThemeByBubbleVariables(bv, iframeId){
+    const elem = document.getElementById(iframeId);
+    if(bv.chatButtonPosition == 'left'){
+        elem.style.left = bv.chatButtonMarginLeft + 'px';
+    }else{
+        elem.style.right = bv.chatButtonMarginRight + 'px';
+    }
+    elem.style.bottom = bv.chatButtonMarginBottom + 'px';
 }
