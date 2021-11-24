@@ -4,6 +4,7 @@
     <!-- <link rel="stylesheet" href="css/embed.css"> -->
 </head>
 <body>
+    <button type="button" onclick="chatRestart()">reset</button>
 <script>
     var bubbleVariables = {
         "jobId": "14197392",
@@ -23,26 +24,10 @@
             "brandName": "Real School ",
             "brandImg": "https://play-lh.googleusercontent.com/KMZLX6uwi2vZCE1sy8EbvWCk9mNBQjJlsPYcGd3KRipBqbBpMR7gzE09OEnkVxseyFkO",
             "whatsappCtaText": "Chat on WhatsApp",
-            "welcomeMessage": "Hi, Do you want your kid to stand out from the crowd? Let's discuss the right programs for your Kid.",
             "backgroundColor": "#0a5f54",
             "borderRadius": "25",
             "autoShow": true,
-            "phoneNumber": "+918591307787",
-            "instaLink": "",
-            "twLink": "",
-            "fbLink": "",
-            "supportNo": "",
-            "phoneQ": "Please provide your phone number to connect.",
-            "emailQ": "Please let me know your email address",
-            "supportEmail": "",
-            "youTube": "",
-            "messenger": "",
-            "phoneCheckBox": true,
-            "emailCheckBox": true,
             "liveChat": true,
-            "enabledOnMobileCheckBox": false,
-            "brandingCheckBox": false,
-            "couponCodeCheckBox": false
         },
         "templates":{
         "topBar" : {
@@ -57,49 +42,24 @@
 
         }
     };
-	
-    (function() {
-        // https://jobalertbot.com/o/85/35
-        // https://jobalertbot.com/d/1/13893204
-        // https://jobalertbot.com/u/13598658/1/13893204
-        // https://jobalertbot.com/d/1/13893204/1
-        
-        var routes = [
-            '/u/:userId/:flowId/:jobId',
-            '/d/:flowId/:jobId/:ignoreUserID',
-            '/o/:orgId/:flowId',
-            '/d/:flowId/:jobId'
-        ];
-        // parse and recreate config for use
-        routes = routes.map(function(path) {
-            return {
-                pattern: new RegExp("^" + path.replace(/:[^\s/]+/g, '([\\w-]+)') + "$"),
-                path: path
-            };
-        });
-
-    var url = location.pathname;
-
-    for (var i = 0, l = routes.length; i < l; i++) {
-        console.log(url,routes[i],url.match(routes[i].pattern));
-        console.log(routes[i].path, url);
-        console.log(url.match(routes[i].pattern), routes[i].path.match(routes[i].pattern));
-        var found = url.match(routes[i].pattern);
-        if (found) { // parsed successfully
-        console.log("pattern: " + routes[i].pattern); // module to load
-        console.log("args:", found.slice(1)); // arguments for module
-        break; // ignore the rest of the paths
-        }
-    }
-    })();
-
-    (function(w, d, g, e) {
-		var t = d.createElement(g);
+    var embedJS = "https://dev.intelliassist.co/mukesh/esbuild/js/embed.js";
+    var chatScript = null;
+    function chatStart(){
+        var g = 'script';
+        var t = document.createElement(g);
 		t.async = 1;
-		t.src = e;
-		s = d.getElementsByTagName(g)[0];
+		t.src = embedJS;
+		s = document.getElementsByTagName(g)[0];
 		s.parentNode.insertBefore(t, s);
-	})(window, document,'script', 'http://blog.chatboot.com/js/embed.js');
+        chatScript = t;
+    }
+    chatStart();
+    function chatRestart(){
+        chatScript.parentNode.removeChild(chatScript);
+        var elem = document.getElementById("childId");
+        elem.parentNode.removeChild(elem);
+        chatStart();
+    }
 </script>
 
 </body>
