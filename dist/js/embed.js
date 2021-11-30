@@ -38,6 +38,149 @@
     return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
   };
 
+  // node_modules/path-to-regex/index.js
+  var require_path_to_regex = __commonJS({
+    "node_modules/path-to-regex/index.js"(exports, module) {
+      module.exports = Regex;
+      if (typeof window !== "undefined") {
+        window.pathToRegex = Regex;
+      }
+      var escapeRe = /([$.+*?=!:[\]{}(|)/\\])/g;
+      function defaultParam(obj, defaultValue) {
+        return typeof obj !== "undefined" ? obj : defaultValue;
+      }
+      function Regex(path, options) {
+        this.init(path, options);
+        return this;
+      }
+      Regex.prototype.init = function(path = "/", options = {}) {
+        this.options = {
+          case: typeof options.case === "boolean" ? options.case : true,
+          separators: typeof options.separators === "string" ? options.separators : "/",
+          fromStart: typeof options.fromStart === "boolean" ? options.fromStart : true,
+          toEnd: typeof options.toEnd === "boolean" ? options.toEnd : true
+        };
+        this.options.separator = "[" + this.escape(this.options.separators) + "]";
+        if (path instanceof RegExp) {
+          this.restructureRegExp(path);
+        } else if (typeof path === "string") {
+          this.restructurePath(path);
+        }
+      };
+      Regex.prototype.restructureRegExp = function(regexp) {
+        regexp = defaultParam(regexp, /.*/);
+        this.keys = [];
+        this.path = void 0;
+        this.regstr = "" + regexp;
+        this.regstr = this.regstr.substr(1, this.regstr.length - 2);
+        this.regexp = new RegExp(this.regstr, this.options.case ? "" : "i");
+      };
+      Regex.prototype.restructurePath = function(path) {
+        path = defaultParam(path, "/");
+        this.keys = [];
+        this.path = path;
+        this.regstr = "";
+        const separator = this.options.separator;
+        const notseparator = "[^" + this.escape(this.options.separators) + "]";
+        let offset = 0;
+        let count = 0;
+        path = path.replace(new RegExp("^" + separator + "*(.*?)" + separator + "*$"), "$1");
+        path.replace(/:([a-z]\w*)(\((.*?)\))?([\?\*\+])?/gi, (str, key, a, pat, quant, index, string) => {
+          count++;
+          const isMultiple = quant === "*" || quant === "+" ? true : false;
+          const isExtrude = /^(\[[^\[\]]+\]|\([^\(\)]+\)|\.|\\.)[\+\*]$/.test(pat) ? true : false;
+          let isRequired = quant !== "*" && quant !== "?" ? true : false;
+          if (!quant && pat && /^(\[[^\[\]]+\]|\([^\(\)]+\)|\.|\\.)[\*\?]?$/.test(pat))
+            isRequired = false;
+          const quantifier = quant ? quant : "";
+          const isStarted = !index ? true : this.separator(path.charAt(index - 1));
+          const isStoped = index + str.length >= path.length ? true : this.separator(path.charAt(index + str.length));
+          const isToken = isStarted && isStoped;
+          if (index > offset) {
+            const text = path.substring(offset, index);
+            const regstr2 = this.escape(text);
+            this.regstr += regstr2;
+          }
+          if (isToken && index) {
+            if (!isMultiple || !isRequired) {
+              if (pat && !isExtrude) {
+                this.regstr += "?";
+              }
+            }
+          }
+          const pattern = pat ? pat : notseparator + "+";
+          const regstr = isMultiple ? isToken ? isExtrude ? "((?:" + separator + "?" + pattern + ")" + quantifier + ")" : "((?:" + separator + "" + pattern + ")" + quantifier + ")" : "((?:" + notseparator + "*" + pattern + ")" + quantifier + ")" : isToken ? isExtrude ? "(" + pattern + "?)" + quantifier : "(" + pattern + ")" + quantifier : "(" + pattern + ")" + quantifier;
+          this.regstr += regstr;
+          const data = {
+            key,
+            multiple: isMultiple,
+            required: isRequired,
+            index: count,
+            pattern
+          };
+          if (isMultiple)
+            data.regexp = new RegExp(pattern, this.options.case ? "g" : "gi");
+          this.keys.push(data);
+          offset = index + str.length;
+          return str;
+        });
+        if (offset < path.length - 1) {
+          const text = path.substring(offset);
+          const regstr = this.escape(text);
+          this.regstr += regstr;
+        }
+        this.regexp = new RegExp((this.options.fromStart ? "^" : "") + separator + "?" + this.regstr + (this.options.toEnd ? separator + "?$" : "(" + separator + "|" + separator + "?$)"), this.options.case ? "" : "i");
+      };
+      Regex.prototype.escape = function(text) {
+        return text.replace(escapeRe, (s) => {
+          return "\\" + s;
+        });
+      };
+      Regex.prototype.separator = function(char) {
+        return !!(this.options.separators.indexOf(char) + 1);
+      };
+      Regex.prototype.match = function(path) {
+        if (typeof path !== "string")
+          return;
+        const reseparator = this.options.separator;
+        const separator = this.options.separators[0];
+        path = path.replace(new RegExp("^" + reseparator + "*(.*?)" + reseparator + "*$"), separator + "$1" + separator);
+        const result = path.match(this.regexp);
+        if (!result)
+          return;
+        const data = {};
+        this.keys.forEach((item) => {
+          let isMultiple = false;
+          if (data[item.key])
+            isMultiple = true;
+          if (data[item.key] && !Array.isArray(data[item.key])) {
+            isMultiple = true;
+            data[item.key] = [data[item.key]];
+          }
+          if (item.multiple && !data[item.key]) {
+            isMultiple = true;
+            data[item.key] = [];
+          }
+          let value = result[item.index] ? result[item.index] : void 0;
+          if (!isMultiple && !item.multiple) {
+            data[item.key] = value;
+            return;
+          }
+          if (isMultiple && !item.multiple && result[item.index]) {
+            data[item.key].push(value);
+            return;
+          }
+          if (result[item.index])
+            result[item.index].replace(item.regexp, (str) => {
+              if (str)
+                data[item.key].push(str.replace(new RegExp(reseparator + "*$"), ""));
+            });
+        });
+        return data;
+      };
+    }
+  });
+
   // node_modules/js-channel/src/jschannel.js
   var require_jschannel = __commonJS({
     "node_modules/js-channel/src/jschannel.js"(exports, module) {
@@ -492,12 +635,31 @@
   });
 
   // src/js/shared/config.js
-  var env_prod = {
-    isDevMode: false,
-    botURL: "https://dev.intelliassist.co/mukesh/mychatbot",
-    cssURL: "https://dev.intelliassist.co/mukesh/mychatbot/assets/css/embed.css"
+  var pathToRegex = require_path_to_regex();
+  var routes = [
+    "/o/:orgId/:flowId/:jobId",
+    "/o/:orgId/:flowId",
+    "/u/:userId/:flowId/:jobId",
+    "/u/:userId/:flowId"
+  ];
+  if (!bubbleVariables.flowId) {
+    bubbleVariables.flowId = 1;
+  }
+  routes.forEach((route) => {
+    let parser = new pathToRegex(route);
+    let result = parser.match(window.location.pathname);
+    if (result) {
+      for (let key in result) {
+        bubbleVariables[key] = result[key];
+      }
+    }
+  });
+  var env_dev = {
+    isDevMode: true,
+    botURL: "http://localhost:4200",
+    cssURL: "http://localhost:4200/assets/css/embed.css"
   };
-  var env = __spreadProps(__spreadValues({}, env_prod), {
+  var env = __spreadProps(__spreadValues({}, env_dev), {
     iframeId: "childId",
     bv: bubbleVariables
   });

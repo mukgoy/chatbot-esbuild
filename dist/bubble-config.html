@@ -1,0 +1,1041 @@
+
+
+<html>
+    <head>
+    
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/HttpUtil.js" ></script>
+    
+      <!-- TODO: Remove Jquery from embed code currently being used in loader -->
+      <script src="/js/HttpUtil.js"></script>
+      <script src="/js/utilityFunctions.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
+    
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.1.0/introjs.min.css" integrity="sha512-631ugrjzlQYCOP9P8BOLEMFspr5ooQwY3rgt8SMUa+QqtVMbY/tniEUOcABHDGjK50VExB4CNc61g5oopGqCEw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    </head>
+    <body>
+    
+      <nav class="navbar navbar-expand-lg navbar-dark static-top text-white" style="background-color: #1d64df;padding-bottom: 5px;">
+             <div class="container-fluid">
+                   
+                <div><a class="navbar-brand" style="font-size: 1.5rem; font-weight: bolder;" href="/home">IntelliAssist</a></div>
+                
+    <!--             <div class="navbar-text float-right text-white" style="width:100%;text-align:-webkit-right;font-size: 1.2rem;"> Hi Mukesh Goyal</div>
+     -->            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+    
+    
+    
+                <div class="collapse navbar-collapse mr-3" id="navbarResponsive">
+    
+                   <ul class="navbar-nav ml-auto">
+                      <!-- TODO - Active on condition --> 
+                      <li class="navbar-text text-white" style="font-size: 1.3rem;">
+                       <a href="#"> Hi Mukesh Goyal -                      </a>
+                      </li>
+                      <li class="nav-item">
+                       <a href="/home" class="fa fa-home nav-link fa-2x">
+                         </a>
+                      </li>
+                      <li class="nav-item">
+                         <a href="/settings" class="fa fa-user-cog nav-link fa-2x"></a>
+                      </li>
+                      <li class="nav-item">
+                         <a href="/logout" class="fa fa-sign-out-alt nav-link fa-2x"></a>
+                      </li>
+                      
+                   </ul>
+    
+                </div>
+    
+    
+             </div>
+          </nav>
+    
+    <div class="position-absolute w-100 d-flex flex-column p-4">
+        <div class="toast ml-auto" data-delay="70000" data-autohide="false" role="alert">
+            <div class="toast-body"> Preview Updated, please click 'Add To My Site' to save the changes.</div>
+        </div>
+    </div>
+    
+      <div class="container">
+        <h6 class="pt-3 pb-2"></h6>
+          
+       <div class="row">   
+           <div class="col-sm-4 mb-3 pb-3"><b>Please click 'Add To My Site' to save the changes.</b></div> <br>
+           <div class="col-sm-2 mb-3 pb-3"><button class="btn btn-info btn-sm" id="start_tour">Take a Tour</button></div>
+      </div>
+    
+        <form>
+         <div class="form-row">
+    
+          <div class="form-group col-sm-2 mb-3" id="couponCodeCheckBoxDiv">
+             <label>Offer coupon code <a href="https://docs.google.com/document/d/1XGd6NfFGHKpyxXY4Ef5mB-FBxbiIL-X0SPLI4bT3eo0/edit?usp=sharing" target="_blank"><i class="fas fa-info-circle" rel="tooltip" title="Click to learn more"></i></a></label>
+              <input type="checkbox" id="couponCodeCheckBox" onchange="updateCode(this)">
+            </div>
+    
+        <div class="form-group col-sm-4 mb-2">
+            <label rel="tooltip" title="Chatbot will ask email/phone from every visitor before sending to Whatsapp/Live chat">Ask from every visitor <i class="fas fa-info-circle"></i> &nbsp;Phone No</label>
+              <input type="checkbox" id="phoneCheckBox" onchange="updateCode(this);" checked>
+              <label>&nbsp;Email</label>
+              <input type="checkbox" id="emailCheckBox" onchange="updateCode(this);">
+          </div>
+    
+    
+            <div class="col-sm-2 mb-1">
+              <div class="form-group">
+               <label>Enable Livechat ? <a href="https://docs.google.com/document/d/1P0htqsQ9ZBWsMX06TlL5gQKN3V7psa8yeOE0L8Hz0FU/edit?usp=sharing" target="_blank"><i class="fas fa-info-circle" rel="tooltip" title="Click to learn more"></i></a></label>
+    
+              <input type="checkbox" id="liveChat" name="liveChat" onchange="updateCode(this);">
+    
+              </div>
+            </div>
+    
+    
+            <div class="col-sm-2 mb-1">
+              <div class="form-group">
+               <label>Enabled On Mobile ?</label>
+    
+              <input type="checkbox" id="enabledOnMobileCheckBox" name="enabledOnMobileCheckBox" checked onchange="updateCode(this);">
+    
+              </div>
+            </div>
+    
+    
+            <div class="col-sm-2 mb-1">
+              <div class="form-group">
+               <label rel="tooltip" title="If you want to chatbot open automatically when user opens the page.">Open by default <i class="fas fa-info-circle"></i></label>  
+    
+              <input type="checkbox" id="autoShow" name="autoShow" onchange="updateCode(this);">
+    
+              </div>
+            </div>
+    
+    
+        </div>  
+        <div class="form-row">    
+    
+          <div class="col-sm-3 mb-1">
+              <div class="form-group">
+                  <label>Channel for Chatbot <a href="https://docs.google.com/document/d/1ta8_y-v1ko5lY7n6-ABhMr0Ij9S3Y77QVlzz1aF12QU/edit?usp=sharing" target="_blank"><i class="fas fa-info-circle" rel="tooltip" title="Click to learn more"></i></a></label>
+                <select class="form-control input-md jobIdPicker" name="jobId" id="jobId" data-error="Select a Channel" onchange="updateCode();">
+                  <option value="0" selected>Select Channel</option>
+                </select>
+              </div>
+            </div>
+    
+    
+          <div class="form-group col-sm-3 mb-4">
+             <label>Brand Name</label>
+              <input type="text" value="IntelliAssist" class="form-control" id="brandName" onchange="updateCode();">
+            </div>
+    
+    
+          <div class="col-sm-3 mb-1">
+              <div class="form-group">
+               <label rel="tooltip" title="Chatbot on left or rite side of page.">Bubble Position <i class="fas fa-info-circle"></i></label>  
+               <select class="form-control input-md" name="chatButtonPosition" id="chatButtonPosition" data-error="Select if the bot to show in left or right" onchange="updateCode();">
+                  <option value="right" >Right</option>
+                  <option value="left" >Left</option>
+                </select>
+            </div>
+          </div>
+    
+          </div>  
+          <div class="form-row">  
+             
+    
+    
+    
+        </div>  
+        <div class="form-row">        
+    
+          <div class="form-group col-sm-3 mb-4">
+             <label rel="tooltip" title="When chat opens, this is the message appears.">Welcome Message on chat <i class="fas fa-info-circle"></i></label>
+              <input type="text" value="" class="form-control" id="welcomeMessage" onchange="updateCode();">
+          </div>  
+    
+        
+            <div class="form-group col-sm-3 mb-3" id="phoneQDiv">
+             <label>Phone No Question</label>
+              <input type="text" value="" class="form-control" id="phoneQ" onchange="updateCode();">
+            </div>  
+    
+    
+            <div class="form-group col-sm-3 mb-2" id="whatsappNoDiv">
+             <label rel="tooltip" title="Your business whatsapp no, where you want to receieve messages">Whatsapp No <i class="fas fa-info-circle"></i></label>
+              <input type="text" placeholder="Please add no with country code e.g.- +91" class="form-control" id="phoneNumber" onchange="updateCode();">
+            </div>
+    
+    
+          <div class="form-group col-sm-3 mb-4">
+             <label rel="tooltip" title="Shows on top of chat window." >Brand Logo <i class="fas fa-info-circle"></i></label>
+            <!-- This is a comment  <input type="text" placeholder="Logo path (min 50px square) - https://xyz.com/image.jpg" class="form-control" id="brandImg" onchange="updateCode();">  <input id="fileupload" type="file" name="fileupload" />
+    <button id="upload-button" onchange="sendImageToAzure()type="button"> Upload </button>
+       onchange="sendImageToAzure(this)"
+      -->
+                <input id="image-file" type="file"  onchange="showImage(this)">
+                
+                <img id="blah" src="https://upload.wikimedia.org/wikipedia/en/4/48/Blank.JPG" alt="your image" width="50%" height="50%" style="display: none;" />
+                
+          </div>  
+    
+    
+    
+        </div>  
+        <div class="form-row">      
+    
+            <div class="form-group col-sm-3 mb-2" id="defaultMessageDiv">
+             <label rel="tooltip" title="When user send you message on WhatsApp, this is the default message in compose.">Default message on Whatsapp <i class="fas fa-info-circle"></i></label>
+              <input type="text" placeholder="Default Message" value="" class="form-control" id="defaultmsg" onchange="updateCode();">
+            </div>
+    
+            <div class="form-group col-sm-3 mb-4">
+             <label rel="tooltip" title="The text with whatsapp chat bubble.">Chat Bubble Text <i class="fas fa-info-circle"></i> </label>
+              <input type="text" value="" class="form-control" id="chatButtonCtaText" onchange="updateCode();">
+            </div>  
+    
+    
+            <div class="form-group col-sm-3 mb-3" id="couponCodeDiv" style="display: none;">
+             <label>Coupon Code</label>
+              <input type="text" value="" placeholder="Coupon code with msg" class="form-control" id="couponCode" onchange="updateCode();">
+            </div>  
+    
+    
+            <div class="form-group col-sm-3 mb-3" id="emailQDiv" style="display: none;">
+             <label>Email Question</label>
+              <input type="text" value="" class="form-control" id="emailQ" onchange="updateCode();">
+            </div>  
+    
+        
+        </div>  
+        <div class="form-row">  
+    
+    
+      </div>  
+      <div class="form-row">  
+    
+            
+          <div class="form-group col-sm-2 mb-4">
+            <label>WhatsApp Bubble Color</label>
+            <input type="color" placeholder="" value="" class="form-control" id="chatButtonBackgroundColor" onchange="updateCode();">
+          </div>  
+    
+          <div class="form-group col-sm-2 mb-4">
+            <label>Chat Header Color</label>
+            <input type="color" placeholder="" value="" class="form-control" id="backgroundColor" onchange="updateCode();">
+          </div>
+    
+    <!--       <div class="form-group col-sm-2 mb-4">
+            <label>Bubble Text Color</label>
+            <input type="color" placeholder="" value="black" class="form-control" id="bubbleTextColor" onchange="updateCode();">
+          </div>  
+    
+          <div class="form-group col-sm-2 mb-4">
+            <label>Bubble Text Background</label>
+            <input type="color" placeholder="" value="white" class="form-control" id="bubbleTextBackground" onchange="updateCode();">
+          </div> -->
+    
+    
+          <div class="form-group col-sm-2 mb-3" id="chatButtonMarginLeftDiv" style="display:none;">
+             <label>Bubble horizantal position</label>
+              <input type="range" class="form-range" min="0" max="500" value="" id="chatButtonMarginLeft" onchange="updateCode();">
+            </div>
+    
+           <div class="form-group col-sm-2 mb-3" id="chatButtonMarginRightDiv" style="display:none;">
+             <label>Bubble horizantal position</label>
+              <input type="range" class="form-range" min="0" max="500" value="" id="chatButtonMarginRight" onchange="updateCode();">
+    
+            </div>
+    
+    
+          <div class="form-group col-sm-2 mb-4">
+    
+              <label>Bubble Vertical Position</label>
+              <input type="range" class="form-range" min="0" max="500" value="" id="chatButtonMarginBottom" onchange="updateCode();">
+    
+          </div>  
+    
+    
+        </div>   
+    
+    
+          <div class="form-row" id="socialMediaDiv"> 
+          
+          <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Instagram Link" placeholder="Instagram Link" class="form-control" id="instaLink" onchange="updateCode();">
+            </div>
+    
+    
+          <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Twitter Link" placeholder="Twitter Link" class="form-control" id="twLink" onchange="updateCode();">
+            </div>
+    
+    
+          <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Facebook Link" placeholder="Facebook Link" class="form-control" id="fbLink" onchange="updateCode();">
+            </div>
+    
+    
+          <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Support Number" placeholder="Support Number" class="form-control" id="supportNo" onchange="updateCode();">
+            </div>
+    
+          <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Support Email" placeholder="Support Email" class="form-control" id="supportEmail" onchange="updateCode();">
+            </div>
+    
+            <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="You Tube Link"  placeholder="You Tube Link" class="form-control" id="youTube" onchange="updateCode();">
+            </div>
+    
+    
+            <div class="form-group col-sm-2 mb-4">
+              <input type="text" rel="tooltip" title="Facebook Messenger Link"  placeholder="Facebook Messenger Link" class="form-control" id="messenger" onchange="updateCode();">
+            </div>
+    
+          </div>
+    
+                  <label>Show IntelliAssist Branding</label>
+                    <input type="checkbox" id="brandingCheckBox" onchange="updateCode(this)">
+        </form>
+    
+    
+    
+        <button type="button" id="generateCode" class="btn btn-primary">Add To My Site</button>
+        &nbsp;&nbsp;
+        <button type="button" id="copyCode" class="btn btn-secondary">Copy Code</button>
+        &nbsp;&nbsp;
+        <button type="button" id="removeCode" class="btn btn-secondary">Remove From My Site</button>
+        
+        <br><br>
+    
+        <p><b>For Shopify and Instamojo users,the chat bubble will update automatically after clicking 'Add to my site'.</b><br> For others you need to add the following code to your website pages. You can see detailed instruction how to do it <a href="https://docs.google.com/document/d/1AZyA8mrWx1KRDBizBh6Otzu0yeZfr6ZN7IfTGRZFMzc/edit?usp=sharing" target="_blank" id="install_instruction">here</a>.</p>
+    
+        <textarea type="textarea" rows="6" cols="30" id="botCodeToCopy" class="form-control" id="Code" value=""> </textarea>
+    
+    
+       <br><br> 
+    
+      </div>
+    
+    
+      <div id="chatBubbleCode"></div>
+    
+    </body> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.1.0/intro.min.js" integrity="sha512-vpRYyG0wwpTzFdMa1fWEV6GLWfJiiKG1W7dCPuIuvm2kbZMUA8jnokV84rdUft8AF6ih83/ItbmP/fDzNjVxsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <script type="text/javascript">
+    
+    var orgId = "";
+    var recruiterId = "27476941";
+    var orgName = "";
+    var baseUrl = "https://api.intelliassist.co";
+    var userRoleDetail = {"automation_configuration":null,"roleId":null,"orgId":null,"roleName":null,"openFunctionalities":[],"automationConfiguration":null,"bot_link":null,"org_type":null,"orgName":null,"brand_logo":null,"brand_logo_style":null,"plan_name":null,"price":null,"currency":null,"subscription_plan":null,"message":"All open functionalities","type":"OK","code":"200"} ;
+    
+    var param="";
+    
+    </script>
+    
+    
+    
+    <script type="text/javascript">
+      
+    
+    const checkBoxArray = ["couponCodeCheckBox", "phoneCheckBox", "emailCheckBox", "liveChat", "autoShow", "enabledOnMobileCheckBox","brandingCheckBox"];
+    
+    //console.log(checkBoxArray);
+    
+    var bubbleVariables = {
+      "jobId": "0",
+      'enabled': true,
+      'chatButtonSetting': {
+        'chatButtonBackgroundColor': '#4dc247',
+        'chatButtonCtaText': '',
+        'chatButtonBorderRadius': '25',
+        'chatButtonMarginLeft': '0',
+        'chatButtonMarginBottom': '20',
+        'chatButtonMarginRight': '20',
+        'chatButtonPosition': 'left',
+        'couponCode': '',
+        'defaultmsg': 'I am interested in your products',
+        'brandName': 'Intelliassist ',
+        'brandImg': 'https://storage.googleapis.com/static.intelliassist.co/images/icon_64.png',
+        'whatsappCtaText': 'Chat on WhatsApp',
+        'welcomeMessage': 'Welcome',
+        'backgroundColor': '#0a5f54',
+        'borderRadius': '25',
+        'autoShow': false,
+        'phoneNumber': '+918130138055',
+        'instaLink': '',
+        'twLink': '',
+        'fbLink': '',
+        'supportNo': '',
+        'phoneQ': 'Please let me know your whatsapp number to connect',
+        'emailQ': 'Please let me know your email address',
+        'defaultmsg': '',
+        'supportEmail': '',
+        'youTube':'',
+        'messenger':'',
+        'phoneCheckBox': true,
+        'emailCheckBox': false,
+        'liveChat':false,
+        'enabledOnMobileCheckBox':true,
+        'brandingCheckBox':true
+      },
+      "orgId": orgId,
+      "version": "4.2"
+    }
+    
+    
+    //refresh();
+    getAllClientsAndJobs();
+    
+    
+    if (userRoleDetail != null && userRoleDetail.automationConfiguration != null && JSON.parse(userRoleDetail.automationConfiguration).bubbleVariables != null) {
+    
+      console.log(`bubbleVariables.version : ${bubbleVariables.version}`);
+      console.log(`response.automationConfiguration.bubbleVariables.version : ${JSON.parse(userRoleDetail.automationConfiguration).bubbleVariables.version}`);
+    
+      if (bubbleVariables.version == JSON.parse(userRoleDetail.automationConfiguration).bubbleVariables.version) {
+        
+        console.log("Version Match");
+        bubbleVariables = JSON.parse(userRoleDetail.automationConfiguration).bubbleVariables;
+      
+      } else {
+        console.log("Version Mis Match");
+        let latestVersion = bubbleVariables["version"];
+        bubbleVariables = mergeObjects(bubbleVariables, JSON.parse(userRoleDetail.automationConfiguration).bubbleVariables);
+        bubbleVariables["version"] = latestVersion;
+      }
+    }
+    
+    //console.log(bubbleVariables);
+    
+    
+    function updateCode() {
+    
+      let jobId = $('#jobId').val();
+      if (jobId == "NaN" || jobId == 0) {
+          jobId = parseInt($("#jobId option:eq(1)").val());
+      }
+    
+      bubbleVariables.orgId = orgId; 
+      bubbleVariables.jobId = jobId;
+      bubbleVariables.chatButtonSetting.liveChat = $('#liveChat')[0].checked;
+    
+      bubbleVariables.chatButtonSetting.autoShow = $('#autoShow')[0].checked;
+      bubbleVariables.chatButtonSetting.brandName = $('#brandName').val();
+      bubbleVariables.chatButtonSetting.brandImg = $('#brandImg').val();
+      bubbleVariables.chatButtonSetting.phoneNumber = $('#phoneNumber').val();
+      bubbleVariables.chatButtonSetting.defaultmsg = $('#defaultmsg').val();
+      bubbleVariables.chatButtonSetting.backgroundColor = $('#backgroundColor').val();
+      bubbleVariables.chatButtonSetting.welcomeMessage = $('#welcomeMessage').val();
+      bubbleVariables.chatButtonSetting.chatButtonCtaText = $('#chatButtonCtaText').val();
+      bubbleVariables.chatButtonSetting.chatButtonBackgroundColor = $('#chatButtonBackgroundColor').val();
+    
+    
+      bubbleVariables.chatButtonSetting.instaLink = $('#instaLink').val();
+      bubbleVariables.chatButtonSetting.twLink = $('#twLink').val();
+      bubbleVariables.chatButtonSetting.fbLink = $('#fbLink').val();
+      bubbleVariables.chatButtonSetting.supportNo = $('#supportNo').val();
+      bubbleVariables.chatButtonSetting.supportEmail = $('#supportEmail').val();
+      bubbleVariables.chatButtonSetting.youTube = $('#youTube').val();
+      bubbleVariables.chatButtonSetting.messenger = $('#messenger').val();
+    
+    
+      bubbleVariables.chatButtonSetting.chatButtonPosition = $('#chatButtonPosition').val();
+      bubbleVariables.chatButtonSetting.chatButtonMarginLeft = $('#chatButtonMarginLeft').val();
+      bubbleVariables.chatButtonSetting.chatButtonMarginRight = $('#chatButtonMarginRight').val();
+      bubbleVariables.chatButtonSetting.chatButtonMarginBottom = $('#chatButtonMarginBottom').val();
+      bubbleVariables.chatButtonSetting.couponCode = $('#couponCode').val();
+      bubbleVariables.chatButtonSetting.phoneQ = $('#phoneQ').val();
+      bubbleVariables.chatButtonSetting.emailQ = $('#emailQ').val();
+      bubbleVariables.chatButtonSetting.defaultmsg = $('#defaultmsg').val();
+    
+      bubbleVariables.chatButtonSetting.phoneCheckBox = $('#phoneCheckBox')[0].checked;
+      bubbleVariables.chatButtonSetting.enabledOnMobileCheckBox = $('#enabledOnMobileCheckBox')[0].checked;
+      bubbleVariables.chatButtonSetting.emailCheckBox = $('#emailCheckBox')[0].checked;
+      bubbleVariables.chatButtonSetting.couponCodeCheckBox = $('#couponCodeCheckBox')[0].checked;
+    
+      bubbleVariables.chatButtonSetting.brandingCheckBox = $('#brandingCheckBox')[0].checked;
+    
+    
+      //CreateWhatsappChatWidget(bubbleVariables);
+    
+      chatRestart();
+      console.log('Chat Restart called');
+    
+      $('.toast').toast('show');
+    
+    
+    }
+    
+    
+    $("#liveChat").change(function() {
+      updateLiveChat();
+    });
+    
+    
+    $("#chatButtonPosition").change(function() {
+    
+      let chatButtonPositionVal = $("#chatButtonPosition").val();
+      updateHorizontalSliders(chatButtonPositionVal);
+    
+    });
+    
+    
+    function updateHorizontalSliders(chatButtonPositionVal){
+    
+        if (chatButtonPositionVal == 'left') {
+        $('#chatButtonMarginLeftDiv').show();
+        $('#chatButtonMarginRightDiv').hide();
+      } else if (chatButtonPositionVal == 'right') {
+        $('#chatButtonMarginLeftDiv').hide();
+        $('#chatButtonMarginRightDiv').show();
+      }
+    }
+    
+    
+    $("#jobId").change(function() {
+    
+      httpRequestPostJSON(`${baseUrl}/walkinapp/api/hiresvc/findHiringRequirementByWalkinId`, {
+        "walkinId": parseInt(document.getElementById("jobId").value)
+      }, null, 10000, function(response) {
+        response = JSON.parse(response).response;
+        if (response != null && response.automationConfiguration != null && response.automationConfiguration.bubbleVariables != null) {
+          
+          console.log(`bubbleVariables.version : ${bubbleVariables.version}`);
+          console.log(`response.automationConfiguration.bubbleVariables.version : ${response.automationConfiguration.bubbleVariables.version}`);
+    
+          if (bubbleVariables.version == response.automationConfiguration.bubbleVariables.version) {
+            console.log("Version Match");
+            bubbleVariables = response.automationConfiguration.bubbleVariables;
+            refresh();
+          } else {
+            let latestVersion = bubbleVariables["version"];
+            console.log("Version Mis Match");
+            bubbleVariables = mergeObjects(bubbleVariables, response.automationConfiguration.bubbleVariables);
+            bubbleVariables["version"] = latestVersion;
+            refresh();
+          }
+    
+        }
+      }, null, true);
+    
+    });
+    
+    function refresh() {
+    
+      //CreateWhatsappChatWidget();
+    
+      Object.keys(bubbleVariables).forEach(key => {
+    
+        if (typeof bubbleVariables[key] == "object") {
+          Object.keys(bubbleVariables[key]).forEach(keyNested => {
+    
+            //console.log(keyNested);
+    
+            if(checkBoxArray.includes(keyNested)){
+                $('#'+keyNested)[0].checked = bubbleVariables[key][keyNested];
+            }else{
+                $(`#${keyNested}`).val(bubbleVariables[key][keyNested]);
+            }
+    
+          });
+        } else {
+          //console.log(key);
+          $(`#${key}`).val(bubbleVariables[key]);
+        }
+      });
+    
+      
+    
+    }
+    
+    
+    function getAllClientsAndJobs() {
+      let clientSelector = document.querySelector("#jobId");
+      let theUrl = `${baseUrl}/walkinapp/api/chatbot/messageTemplate/fetchAllClientsAndJobs?orgId=${orgId}`;
+      httpRequestGet(theUrl, null, null, 10000, function(response) {
+        response = JSON.parse(response);
+        let jobsSelector = createJobsSelectorFromList(response.response.jobs);
+        initialiseDropdown(clientSelector, jobsSelector[0], jobsSelector[1]);
+    
+        refresh();
+    
+        if (jobsSelector[1].length == 1) {
+          console.log(`JOB : ${jobsSelector[1][0]}`);
+          $("#jobId").val(jobsSelector[1][0]).trigger('change');
+        }
+    
+      }, null, true);
+    }
+    
+    
+    function createJobsSelectorFromList(jobs) {
+      let jobName = [];
+      let jobId = [];
+      jobs.forEach(job => {
+        jobName.push(`${job.client} :: ${job.position} - ${job.walkinId}`);
+        jobId.push(job.walkinId);
+      });
+      return [jobName, jobId];
+    }
+    
+    function initialiseDropdown(selectElement, data, value) {
+      let i = 0;
+      data.forEach(optionValue => {
+        let newOption = new Option(optionValue, value == null ? optionValue : value[i]);
+        selectElement.add(newOption);
+        i++;
+      });
+    }
+    
+    
+    function generateCode(){
+    
+      $("#removeCode").click();
+    
+      updateCode();
+    
+      let jobId = parseInt(document.querySelector("#jobId").value);
+    
+      //Picking up first channel if user doesn't select anything 
+    
+      if (jobId == "NaN" || jobId == 0) {
+        jobId = parseInt($("#jobId option:eq(1)").val());
+      }
+    
+    
+      $('#botCodeToCopy').val(`<script src="https://istaticbucket.blob.core.windows.net/javascript/${encodeURIComponent(orgId)}-${encodeURIComponent(jobId)}.js"><\/script>`);
+    
+      let bubblecode = "";
+    
+        console.log(JSON.stringify(bubbleVariables));
+        bubblecode = `\n\n var bubbleVariables = ${JSON.stringify(bubbleVariables)}; \n\n CreateWhatsappChatWidget(bubbleVariables); \n\n`;
+    
+       let embed_scr="var embedJS = 'https://dev.intelliassist.co/mukesh/esbuild/js/embed.js';(function(w, d, g, e) {var t = d.createElement(g);t.async = 1;t.src = e;s = d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})(window, document,'script', embedJS);"; 
+    
+        bubblecode = bubblecode + embed_scr;
+    
+      sendResponseInAzure(bubblecode);
+    
+        let theUrl = `/uploadToPhpProd.php`;
+        httpRequestPostJSON(theUrl, {
+          "fileContent": bubblecode,
+          "fileName": `js/botCode/${orgId}-${jobId}.js`
+        }, null, 10000, function(response) {
+    
+          if (jobId == 0) {
+    
+            httpRequestPostJSON(`${baseUrl}/walkinapp/api/org/addOrUpdate`, {
+              "id": parseInt(orgId),
+              "automationConfiguration": {
+                "bubbleVariables": bubbleVariables
+              }
+            }, null, 10000, function(response) {
+              alert("Saved !");
+              updateEcommPortal();
+            }, null, true);
+    
+          } else {
+    
+            httpRequestPostJSON(`${baseUrl}/walkinapp/api/hiresvc/addorupdatehiringrequirement`, {
+              "walkinId": parseInt(jobId),
+              "automationConfiguration": {
+                "bubbleVariables": bubbleVariables
+              }
+            }, null, 10000, function(response) {
+              alert("Saved !");
+              updateEcommPortal();
+            }, null, true);
+    
+          }
+    
+    
+    
+          httpRequestPostJSON( `${baseUrl}/walkinapp/api/logs/settingsArchive/addOrUpdate`, {
+            "type" : "bubbleVariables",
+            "value" : JSON.stringify(bubbleVariables),
+            "config" : jobId,
+            "alteredBy" : recruiterId,
+            "orgId" : orgId 
+          }, null, 10000, function(response) {}, null, true);
+    
+    
+        }, null, true);
+    
+    }
+    
+    
+    
+    
+    function sendResponseInAzure(jsObject) {
+    
+        var fileName = `${orgId}-${jobId}.js`;
+        console.log(fileName);
+        var formData = new FormData();
+        formData.append('file', new File([jsObject], `${orgId}-${jobId}.js`, {
+            type: "application/javascript",
+        }));
+    
+        formData.append("containerName", 'javascript');
+        formData.append("fileName", `${orgId}-${jobId}.js`);
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                if (xmlhttp.status == 200) {
+                    var r = JSON.parse(xmlhttp.responseText);
+                    console.log(JSON.parse(xmlhttp.responseText));
+                    var r1 = r.response;
+                    var storageUrlAzure = r1.storageUrl;
+                    console.log(storageUrlAzure);
+    
+                }
+            }
+        };
+    
+        var url = `${baseUrl}/walkinapp/api/azure/uploadFileforAzure`;
+    
+        xmlhttp.open("POST", url);
+        xmlhttp.send(formData);
+    
+    }
+    
+    
+    
+    function showImage(e) {
+    
+        var source = document.getElementById("blah").src;
+        console.log(source);
+        if (source == "https://upload.wikimedia.org/wikipedia/en/4/48/Blank.JPG") {
+    
+            const file = document.getElementById("image-file").files[0];
+            if (file) {
+    
+                blah.src = URL.createObjectURL(file)
+                document.getElementById("blah").style.display = "block";
+                sendImageToAzure();
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    function sendImageToAzure() {
+        let photo = document.getElementById("image-file").files[0];
+        var filename = photo.name; // file from input
+        let formData = new FormData();
+        var filenameInAzure = `${orgId}-${jobId}-BrandImg`;
+        console.log(filenameInAzure);
+        formData.append('file', new File([photo], filenameInAzure, {
+            type: "image/jpeg",
+        }));
+        formData.append("containerName", 'images');
+    
+        formData.append("fileName", filenameInAzure);
+    
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                if (xmlhttp.status == 200) {
+                    var r = JSON.parse(xmlhttp.responseText);
+                    console.log(JSON.parse(xmlhttp.responseText));
+                    var r1 = r.response;
+                    var storageUrlAzure = r1.storageUrl;
+                    console.log(storageUrlAzure);
+                    var bubbleJson = bubbleVariables.chatButtonSetting;
+                    bubbleJson.brandImg = storageUrlAzure;
+                    console.log(bubbleVariables);
+                }
+            }
+        };
+    
+        var url = `${baseUrl}/walkinapp/api/azure/uploadFileforAzure`;
+    
+        xmlhttp.open("POST", url);
+        xmlhttp.send(formData);
+    
+    }
+    
+    
+    
+    
+    
+    function updateLiveChat() {
+      let liveChat = $("#liveChat")[0].checked;
+    
+      if (liveChat) {
+        $('#defaultMessageDiv').hide();
+        alert('Please go to Chat Dashboard from home page to access live customer chats.');
+    
+      } else {
+        $('#defaultMessageDiv').show();
+    
+      }
+    
+    }
+    
+    
+    $("#couponCodeCheckBox").change(function() {
+      //console.log(1);
+      let couponCodeCheckBoxVal = $("#couponCodeCheckBox")[0].checked;
+    
+      if (couponCodeCheckBoxVal) {
+        $('#couponCodeDiv').show();
+    
+        alert('Please add coupon code and message in provided field. \n\nYou can also change welcome message on chat to tell the user that you are offering discount code.');
+    
+      } else {
+        $('#couponCodeDiv').hide();
+      }
+    
+    
+    
+    });
+    
+    
+    $("#phoneCheckBox").change(function() {
+      //console.log(1);
+      let phoneCheckBoxVal = $("#phoneCheckBox")[0].checked;
+    
+      if (phoneCheckBoxVal) {
+    
+        $('#phoneQDiv').show();
+        alert('Please update how do you want to ask phone no in Phone No Question');
+    
+      } else {
+        $('#phoneQDiv').hide();
+      }
+    
+    });
+    
+    
+    $("#emailCheckBox").change(function() {
+      //console.log(1);
+      let emailCheckBoxVal = $("#emailCheckBox")[0].checked;
+    
+      if (emailCheckBoxVal) {
+    
+        $('#emailQDiv').show();
+        alert('Please update how do you want to ask email address in Email Question');
+    
+      } else {
+        $('#emailQDiv').hide();
+      }
+    
+    });
+    
+    
+    $("#generateCode").click(generateCode);
+    
+    
+    
+    
+    $("#removeCode").click(function() {
+      $('#botCodeToCopy').val(``);
+    
+      httpRequestGet(`${baseUrl}/walkinapp/api/ecomm/botPopup/removeBotPopup?orgId=${orgId}`, null, null, 10000, function(response) {
+    
+        response = JSON.parse(response);
+        if (response.message != null) {
+          //alert( `Bot Popup Removed from Shop ${response.message} `);
+        }
+      }, null, true);
+    
+    });
+    
+    
+    function updateEcommPortal() {
+      let jobId = parseInt(document.querySelector("#jobId").value);
+    
+      //Picking up first channel if user doesn't select anything 
+    
+      if (jobId == "NaN" || jobId == 0) {
+          jobId = parseInt($("#jobId option:eq(1)").val());
+      }
+    
+      httpRequestGet(`${baseUrl}/walkinapp/api/ecomm/botPopup/pushBotPopup?orgId=${orgId}&scripts=${encodeURIComponent(`https://dev.intelliassist.co/js/botCode/${encodeURIComponent(orgId)}-${jobId}.js`)}`, null, null, 10000, function(response) {
+        response = JSON.parse(response);
+    
+        if (response.message != null) {
+          alert(`${response.message} Shop Updated with Bot Popup`);
+        }
+    
+    
+      }, null, true);
+    }
+    
+    
+    $("#copyCode").click(function() {
+      copyCode();
+    });
+    
+    
+    function copyCode() {
+      var copyText = document.getElementById("botCodeToCopy");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Copied the code");
+    }
+    
+    
+    $('document').ready(function(){
+    
+      if(param=="new"){
+        startTour();
+      }
+    
+       // $("#jobId")[0].selectedIndex = 1;
+       // bubbleVariables.jobId=$("#jobId").val();
+    
+      let chatButtonPositionVal = bubbleVariables.chatButtonSetting.chatButtonPosition;
+      updateHorizontalSliders(chatButtonPositionVal);
+    
+      $('#start_tour').click(startTour);
+    
+    
+    
+    });
+    
+    
+    function startTour(){
+    
+      introJs().setOptions({
+      exitOnOverlayClick: false,
+          steps: [{
+            title: 'Welcome 👋',
+            intro: 'Let me take you through step by step process of customising your chat bubble.<br><br>Just follow the steps and make changes in Real-time.'
+          }, 
+          {
+            title: 'Select Channel',
+            element: document.querySelector('#jobId'),
+            intro: 'Select a Channel for which you want to configure the chatbot UI.<br><br>By default the channel \'Bot Leads\' is selected for new users.<br><br><a href="https://docs.google.com/document/d/1ta8_y-v1ko5lY7n6-ABhMr0Ij9S3Y77QVlzz1aF12QU/edit" target="_blank">Learn More</a> how to use channels.'
+          },
+          {
+            title: 'Brand Name',
+            element: document.querySelector('#brandName'),
+            intro: 'Update your brand name here.<br><br>You can do the changes right now when intro is running.'
+          },
+          { 
+            title: 'Left or right',
+            element: document.querySelector('#chatButtonPosition'),
+            intro: 'Whichever side suits on your website.'
+          },
+          {
+            title: 'Welcome Message',
+            element: document.querySelector('#welcomeMessage'),
+            intro: 'This will be the first message appearing in the chatbot. You can change it.'
+          },
+          {
+            title: 'Whatapp Number',
+            element: document.querySelector('#phoneNumber'),
+            intro: 'Please enter the Whatsapp no where you want to receieve messages from visitors.<br><br>Please user country code e.g. - +91 with the number'
+          },
+          {
+            title: 'Brand Logo',
+            element: document.querySelector('#brandImg'),
+            intro: 'Add a link to your brand logo. It should be min 50px width square shape.'
+          },             
+          {
+            title: 'Bubble Color',
+            element: document.querySelector('#chatButtonBackgroundColor'),
+            intro: 'Change the bubble color which suits your site theme'
+          },
+          {
+            title: 'Chat Header Color',
+            element: document.querySelector('#backgroundColor'),
+            intro: 'Change the chat window header color which suits your site theme<br><br>Click the chat bubble to see the header.'
+          },                
+          {
+            title: 'Ask phone no',
+            element: document.querySelector('#phoneCheckBox'),
+            intro: 'On selecting this, the bot will automatically ask every visitor for their phone no before the chat. <br><br>You can customise the pitch in \'Phone No Question\' box below.'
+          },
+          {
+            title: 'Ask Email',
+            element: document.querySelector('#emailCheckBox'),
+            intro: 'On selecting this, the bot will automatically ask every visitor for their email id before the chat. <br><br>You can customise the pitch in \'Email Question\' box below.'
+          },
+          {
+            title: 'Live Chat',
+            element: document.querySelector('#liveChat'),
+            intro: 'If you enable live chat option visitors will be able to talk to you directly when you are available online on Chat Dashboard.<a href="https://docs.google.com/document/d/1P0htqsQ9ZBWsMX06TlL5gQKN3V7psa8yeOE0L8Hz0FU/edit" target="_blank">Learn More</a>'
+          },
+          {
+            title: 'Open by default',
+            element: document.querySelector('#autoShow'),
+            intro: 'If you want to grab more attention of user, the chatbot will open automatically when user opens the page.'
+          },{
+            title: 'Coupon Code',
+            element: document.querySelector('#couponCodeCheckBox'),
+            intro: 'You provide a discount code to visitors, if they provide you their phone/email.<br><br>Select this option and add coupon code <a href="https://docs.google.com/document/d/1XGd6NfFGHKpyxXY4Ef5mB-FBxbiIL-X0SPLI4bT3eo0/edit" target="_blank">Learn More</a>.'
+          },{
+            title: 'Save It',
+            element: document.querySelector('#generateCode'),
+            intro: 'Once done, save changes by clicking this button and it will be updated on your website.'
+          },
+          {
+            title: 'Install On Site',
+            element: document.querySelector('#install_instruction'),
+            intro: 'Please follow this document to install bubble on site.'
+          }]
+        }).start();
+    
+    }
+    
+    
+    
+    
+    </script>
+    
+    
+    <script>
+        var embedJS = "https://dev.intelliassist.co/mukesh/esbuild/js/embed.js";
+        var chatScript = null;
+        function chatStart(){
+            var g = 'script';
+            var t = document.createElement(g);
+        t.async = 1;
+        t.src = embedJS;
+        s = document.getElementsByTagName(g)[0];
+        s.parentNode.insertBefore(t, s);
+            chatScript = t;
+        }
+        chatStart();
+        function chatRestart(){
+            chatScript.parentNode.removeChild(chatScript);
+            var elem = document.getElementById("childId");
+            elem.parentNode.removeChild(elem);
+            chatStart();
+        }
+    </script>
+    
+    
+    
+    
