@@ -83,7 +83,7 @@ export function urlProperty (url, field){
     return '';
 }
 
-export function setThemeByBubbleVariables(bv, iframeId){
+export function setThemeByBubbleVariables(bv, iframeId, visitor){
     const elem = document.getElementById(iframeId);
     if(bv.chatButtonPosition == 'left'){
         elem.style.left = bv.chatButtonMarginLeft + 'px';
@@ -91,4 +91,8 @@ export function setThemeByBubbleVariables(bv, iframeId){
         elem.style.right = bv.chatButtonMarginRight + 'px';
     }
     elem.style.bottom = bv.chatButtonMarginBottom + 'px';
+
+    if(visitor?.isMobile && !bv.enabledOnMobileCheckBox){
+        elem.style.bottom = '-100px';
+    }
 }

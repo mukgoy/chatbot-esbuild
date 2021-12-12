@@ -6,6 +6,10 @@ import {visitor} from '../shared/useragent'
 export var channelChild = (function () {
 
     if(true){
+        var iframeBubbleSize = {
+            width : 50,
+            height: 50
+          };
         var chan = null;
         var resolve;
         var promise = new Promise(function(res, rej){
@@ -19,14 +23,15 @@ export var channelChild = (function () {
                 scope: "testScope"
             });
             initBind();
-            setThemeByBubbleVariables(env.bv.chatButtonSetting, env.iframeId);
+            setThemeByBubbleVariables(env.bv.chatButtonSetting, env.iframeId, visitor);
             resolve(chan);
         };
         
         var iframe = document.createElement("iframe");
         iframe.id = env.iframeId;
         iframe.classList.add("isChatClose");
-        iframe.style.display = "none"; 
+        iframe.classList.add("chatbotInitiating");
+        // iframe.style.display = "none"; 
         document.body.appendChild(iframe);
         if (window.addEventListener) {
             iframe.addEventListener("load", function(){ onload(); }, false);
@@ -37,8 +42,16 @@ export var channelChild = (function () {
     }
 
     function initBind(){
-        chan.bind("toggleChatBox", function(t, s) {
-            toggleChatBox(s, iframe);
+        chan.bind("initChatBox", function(t, _iframeBubbleSize) {
+            iframeBubbleSize = _iframeBubbleSize
+            console.log(_iframeBubbleSize)
+            iframe.classList.remove("chatbotInitiating");
+            iframe.width  = iframeBubbleSize.width;
+            iframe.height = iframeBubbleSize.height;
+        });
+
+        chan.bind("toggleChatBox", function(t, isChatOpen) {
+            toggleChatBox(isChatOpen, iframe, iframeBubbleSize);
         });
 
         chan.bind("getVisitorInfo", function(t, s) {
